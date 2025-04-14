@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prime User Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        <header class="dashboard-header">
+            <div class="header-inner">
+                <h1>Prime Dashboard</h1>
+                <p>Elite Management Solution</p>
+                <button class="action-btn refresh-btn">Refresh Data</button>
+            </div>
+        </header>
+
+        <main class="dashboard-content">
+            <section class="card" id="team-section">
+                <h2>Processed User Data</h2>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="processed-users"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="card" id="activity-section">
+                <h2>User Posts</h2>
+                <ul id="user-posts" class="activity-feed"></ul>
+            </section>
+
+            <section class="card" id="profile-section">
+                <h2>User List</h2>
+                <div id="user-profile" class="profile-display"></div>
+            </section>
+
+            <section class="card" id="status-section">
+                <h2>State Management</h2>
+                <div class="status-container">
+                    <div class="status-card">
+                        <h3>Initial State</h3>
+                        <pre id="initial-state"></pre>
+                    </div>
+                    <div class="status-card">
+                        <h3>Current State</h3>
+                        <pre id="current-state"></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card" id="logs-section">
+                <h2>System Logs</h2>
+                <div class="logs-controls">
+                    <button class="action-btn" id="format-logs">Format Logs</button>
+                    <button class="action-btn" id="export-data">Export Data</button>
+                </div>
+                <pre id="console-output" class="logs-panel"></pre>
+            </section>
+        </main>
+    </div>
+
+    <script type="module" src="main.js"></script>
+</body>
+</html>
