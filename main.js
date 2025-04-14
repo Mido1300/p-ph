@@ -5,7 +5,7 @@ import { createStateManager } from './StateManagementHelper.js';
 import { users, sampleUser } from './data.js';
 
 // Processed User Data
-const processedUsers = processUserData(users);
+let processedUsers = processUserData(users);
 const usersTable = document.getElementById('processed-users');
 let currentFeaturedUser = { ...sampleUser };
 
@@ -34,10 +34,6 @@ fetchUserPosts(1).then((titles) => {
         postsList.appendChild(li);
     });
 });
-
-// User List initial display
-const profileDisplay = document.getElementById('user-profile');
-profileDisplay.innerHTML = createUserProfileHTML(currentFeaturedUser);
 
 // Message Popup
 function createMessagePopup(user) {
@@ -74,8 +70,10 @@ function createMessagePopup(user) {
     popup.style.display = 'flex';
 }
 
-// Update User List on view click and handle status toggle
-function updateProfileDisplay(user) {
+// User List display with event listeners
+const profileDisplay = document.getElementById('user-profile');
+
+function renderUserProfile(user) {
     profileDisplay.innerHTML = createUserProfileHTML(user);
     const toggleBtn = profileDisplay.querySelector('.toggle-status-btn');
     const messageBtn = profileDisplay.querySelector('.message-btn');
@@ -89,10 +87,9 @@ function updateProfileDisplay(user) {
                 sourceUser.active = user.active;
             }
             // Reprocess users to reflect active status changes
-            processedUsers.length = 0;
-            processedUsers.push(...processUserData(users));
+            processedUsers = processUserData(users);
             renderProcessedUsers();
-            updateProfileDisplay(user);
+            renderUserProfile(user); // Re-render profile to update UI
             log(`User status toggled: ${user.fullName} is now ${user.active ? 'Active' : 'Inactive'}`);
         });
     }
@@ -104,6 +101,10 @@ function updateProfileDisplay(user) {
     }
 }
 
+// Initial render of User List
+renderUserProfile(currentFeaturedUser);
+
+// Update User List on view click
 document.querySelectorAll('.view-btn').forEach(button => {
     button.addEventListener('click', (e) => {
         const index = e.target.getAttribute('data-index');
@@ -117,7 +118,7 @@ document.querySelectorAll('.view-btn').forEach(button => {
             active: users.find(u => u.id === selectedUser.id).active,
             fullName: selectedUser.fullName
         };
-        updateProfileDisplay(currentFeaturedUser);
+        renderUserProfile(currentFeaturedUser);
         log(`User displayed: ${currentFeaturedUser.fullName}`);
     });
 });
